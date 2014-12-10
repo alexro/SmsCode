@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="App" ng-controller="PageController">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"/>
+    <style>
+        body {
+            margin: 20px;
+        }
+        .errorInput {
+            border-color: red !important;
+        }
+        .errorMsg {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="page-header">
+    <h2>Reset your password by SMS</h2>
+    <h4>Enter the 6-digit code sent to your mobile *********70.</h4>
+</div>
+
+<div>
+    <form role="form" name="codeForm" ng-submit="submit()" novalidate>
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">Code</label>
+            <div class="controls">
+                <input id="code" name="code" type="text" style="width: 180px;" ng-class="{ errorInput: codeForm.code.$invalid || !success }" ng-pattern="/^\d+$/" ng-minlength="0" ng-maxlength="6" ng-model="code" ng-trim="false" ng-change="success = true"/>
+            </div>
+            <div ng-show="codeForm.code.$valid && success">Please enter the 6-digit code</div>
+            <div class="errorMsg" ng-show="codeForm.code.$invalid">Please enter 6 digits only</div>
+            <div class="errorMsg" ng-show="!success">That code didn't work, please check and try again</div>
+        </div>
+        <div style="width: 230px">
+            <button class="btn btn-primary pull-right" type="submit" ng-disabled="code.trim().length != 6 || codeForm.code.$invalid">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script src="lib/angular/angular.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
